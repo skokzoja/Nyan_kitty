@@ -19,6 +19,7 @@ while not exit:
             exit = True
 
     pygame.draw.rect(canvas,barvaR, rdec)
-#-------
+#------- :)
+    
 
     pygame.display.update()
