@@ -14,7 +14,7 @@ gravitacija = 0.05
 exit = False
 
 # [ [ sirina,[x, y]], ... ]
-platforme = [ [50,[200,300]], [32, [229, 400]], [65, [350, 150]], [ 30, [500, 200]]]
+platforme = [ [50,[200,300]], [32, [229, 400]], [65, [350, 150]], [ 45, [400, 50]],  [ 30, [500, 200]]]
 
 def novaPlatforma():
     Nsirina = random.randint(30,90)
@@ -32,17 +32,22 @@ while not exit:
     if keys[pygame.K_SPACE]:
         hitrost = -4
 
-
-    #novaPlatforma()
     print(platforme)
-
-    for i in platforme:
-        i[1][0] -= 1.5
-        plat =  pygame.Rect(i[1][0],i[1][1], i[0],5 )
-        pygame.draw.rect(canvas, (150, 0, 250), plat)
 
     kitty = pygame.Rect(x,y,15, 15)
     pygame.draw.rect(canvas, (150,0,250), kitty)
+
+    for i in platforme:
+        i[1][0] -= 1.5
+        plat =  pygame.Rect(i[1][0],i[1][1], i[0],10 )
+        pygame.draw.rect(canvas, (150, 0, 250), plat)
+        if i[1][0] < -i[0]:
+            novaPlatforma()
+            platforme.pop(0)
+        if kitty.colliderect(plat):
+            print(":)")
+
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
