@@ -6,9 +6,11 @@ pygame.init()
 ozadje = pygame.image.load("nyan_cat_background_by_kento1_d3l6i50-pre.jpg")
 canvas = pygame.display.set_mode((500,500))
 ozadje = pygame.transform.scale(ozadje, (500, 500))
+muc = pygame.image.load("muc.png")
+muc = pygame.transform.scale(muc, (250, 250))
 
-pygame.display.set_caption("Moje okno")
-x = 150
+pygame.display.set_caption("Nyan Cat")
+x = 0
 y = 100
 hitrost =   1
 gravitacija = 0.05
@@ -44,7 +46,7 @@ while not exit:
         pygame.draw.rect(canvas, (150, 0, 250), plat)
 
     kitty = pygame.Rect(x,y,15, 15)
-    pygame.draw.rect(canvas, (150,0,250), kitty)
+    canvas.blit(muc, kitty)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
