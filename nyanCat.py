@@ -3,8 +3,9 @@ import random
 import pygame
 
 pygame.init()
-
+ozadje = pygame.image.load("nyan_cat_background_by_kento1_d3l6i50-pre.jpg")
 canvas = pygame.display.set_mode((500,500))
+ozadje = pygame.transform.scale(ozadje, (500, 500))
 
 pygame.display.set_caption("Moje okno")
 x = 150
@@ -24,7 +25,8 @@ def novaPlatforma():
 
 while not exit:
     pygame.time.wait(10)
-    canvas.fill((0, 0, 0))
+    canvas.blit(ozadje, (0, 0))
+
     hitrost += gravitacija
     y += hitrost
 
