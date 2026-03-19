@@ -9,7 +9,7 @@ ozadje = pygame.transform.scale(ozadje, (500, 500))
 muc = pygame.image.load("muc.png")
 muc = pygame.transform.scale(muc, (250, 250))
 klobasa = pygame.image.load("klobasa.png")
-klobasa = pygame.transform.scale(klobasa, (50, 50))
+klobasa = pygame.transform.scale(klobasa, (200, 50))
 
 pygame.display.set_caption("Nyan Cat")
 x = 0
