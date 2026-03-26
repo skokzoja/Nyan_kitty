@@ -18,6 +18,7 @@ x = 150
 y = 100
 hitrost =   5
 gravitacija = 0.07
+skoki = 2
 exit = False
 
 # [ [ sirina,[x, y]], ... ]
@@ -30,13 +31,14 @@ def novaPlatforma():
     platforme.append([Nsirina,[Nx,Ny]])
 
 while not exit:
-    pygame.time.wait(50)
+    pygame.time.wait(20)
     canvas.blit(ozadje, (0, 0))
     naPlatformi = False
 
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_SPACE]:
+    if keys[pygame.K_SPACE] and skoki > 0:
         hitrost = -5
+        skoki -= 1
 
     print(platforme)
     print(x,y)
@@ -58,6 +60,7 @@ while not exit:
             if hitrost >= 0 and kitty.bottom <= plat.bottom:
                 y = plat.top - kitty.height
                 hitrost = 0
+                skoki = 2
                 naPlatformi = True
 
     if naPlatformi == False:
@@ -66,7 +69,8 @@ while not exit:
         y += hitrost
 
 
-
+    if y > 500:
+        exit = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit = True
