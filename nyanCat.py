@@ -8,6 +8,10 @@ canvas = pygame.display.set_mode((500,500))
 ozadje = pygame.transform.scale(ozadje, (500, 500))
 muc = pygame.image.load("muc.png")
 #muc = pygame.transform.scale(muc, (250, 250))
+#muc = pygame.transform.scale(muc, (250, 250))
+klobasa = pygame.image.load("klobasa.png")
+klobasa = pygame.transform.scale(klobasa, (200, 50))
+
 
 pygame.display.set_caption("Nyan Cat")
 x = 150
@@ -44,7 +48,7 @@ while not exit:
     for i in platforme:
         i[1][0] -= 1.5
         plat =  pygame.Rect(i[1][0],i[1][1], i[0],10 )
-        pygame.draw.rect(canvas, (150, 0, 250), plat)
+        canvas.blit(klobasa, plat)
         if i[1][0] < -i[0]:
             novaPlatforma()
             platforme.pop(0)
