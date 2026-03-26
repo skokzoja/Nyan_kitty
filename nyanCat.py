@@ -8,12 +8,17 @@ canvas = pygame.display.set_mode((800, 800))
 ozadje = pygame.transform.scale(ozadje, (800, 800))
 muc = pygame.image.load("muc.png")
 muc = pygame.transform.scale(muc, (250, 250))
+#muc = pygame.transform.scale(muc, (250, 250))
+#muc = pygame.transform.scale(muc, (250, 250))
+klobasa = pygame.image.load("klobasa.png")
+klobasa = pygame.transform.scale(klobasa, (200, 50))
+
 
 pygame.display.set_caption("Nyan Cat")
-x = 0
+x = 150
 y = 100
-hitrost =   1
-gravitacija = 0.05
+hitrost =   5
+gravitacija = 0.07
 exit = False
 
 # [ [ sirina,[x, y]], ... ]
@@ -24,22 +29,28 @@ def novaPlatforma():
     Nsirina = random.randint(140,300)
     Nx = 800
     Ny = random.choice(visine)
+platforme = [ [50,[200,300]], [90, [229, 400]], [140, [350, 150]], [ 100, [400, 50]],  [ 50, [500, 200]]]
+
+def novaPlatforma():
+    Nsirina = random.randint(50,140)
+    Nx = 500
+    Ny = random.randint(150,400)
     platforme.append([Nsirina,[Nx,Ny]])
 
 while not exit:
-    pygame.time.wait(10)
+    pygame.time.wait(50)
     canvas.blit(ozadje, (0, 0))
-
-    hitrost += gravitacija
-    y += hitrost
+    naPlatformi = False
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE]:
-        hitrost = -4
+        hitrost = -5
 
     print(platforme)
+    print(x,y)
 
     kitty = pygame.Rect(x,y,15, 15)
+    pygame.draw.rect(canvas, (150, 0, 250), kitty)
     canvas.blit(muc, kitty)
 
     for i in platforme:
@@ -49,8 +60,18 @@ while not exit:
         if i[1][0] < -i[0]:
             novaPlatforma()
             platforme.pop(0)
+
         if kitty.colliderect(plat):
             print(":)")
+            if hitrost >= 0 and kitty.bottom <= plat.bottom:
+                y = plat.top - kitty.height
+                hitrost = 0
+                naPlatformi = True
+
+    if naPlatformi == False:
+        print("------------------------")
+        hitrost += gravitacija
+        y += hitrost
 
 
 
