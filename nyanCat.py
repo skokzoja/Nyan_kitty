@@ -4,12 +4,10 @@ import pygame
 
 pygame.init()
 ozadje = pygame.image.load("nyan_cat_background_by_kento1_d3l6i50-pre.jpg")
-canvas = pygame.display.set_mode((500,500))
-ozadje = pygame.transform.scale(ozadje, (500, 500))
+canvas = pygame.display.set_mode((800, 800))
+ozadje = pygame.transform.scale(ozadje, (800, 800))
 muc = pygame.image.load("muc.png")
 muc = pygame.transform.scale(muc, (250, 250))
-klobasa = pygame.image.load("klobasa.png")
-klobasa = pygame.transform.scale(klobasa, (200, 50))
 
 pygame.display.set_caption("Nyan Cat")
 x = 0
@@ -19,12 +17,13 @@ gravitacija = 0.05
 exit = False
 
 # [ [ sirina,[x, y]], ... ]
-platforme = [ [50,[200,300]], [32, [229, 400]], [65, [350, 150]], [ 45, [400, 50]],  [ 30, [500, 200]]]
+platforme = [ [160,[200,340]], [200, [229, 400]], [140, [350, 580]], [ 180, [400, 60]],  [ 220, [500, 640]]]
+visine = [160, 220, 280, 340, 400, 460, 520, 580, 640, 700]
 
 def novaPlatforma():
-    Nsirina = random.randint(30,90)
-    Nx = 500
-    Ny = random.randint(150,400)
+    Nsirina = random.randint(140,300)
+    Nx = 800
+    Ny = random.choice(visine)
     platforme.append([Nsirina,[Nx,Ny]])
 
 while not exit:
@@ -45,8 +44,8 @@ while not exit:
 
     for i in platforme:
         i[1][0] -= 1.5
-        plat =  pygame.Rect(i[1][0],i[1][1], i[0],10 )
-        canvas.blit(klobasa, plat)
+        plat =  pygame.Rect(i[1][0],i[1][1], i[0],20 )
+        pygame.draw.rect(canvas, (222, 91, 40), plat)
         if i[1][0] < -i[0]:
             novaPlatforma()
             platforme.pop(0)
