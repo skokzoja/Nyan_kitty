@@ -3,18 +3,18 @@ import random
 import pygame
 
 pygame.init()
+pygame.mixer.init()
 ozadje = pygame.image.load("nyan_cat_background_by_kento1_d3l6i50-pre.jpg")
 canvas = pygame.display.set_mode((800, 800))
 ozadje = pygame.transform.scale(ozadje, (800, 800))
 muc = pygame.image.load("muc.png")
 muc = pygame.transform.scale(muc, (250, 250))
-#muc = pygame.transform.scale(muc, (250, 250))
-#muc = pygame.transform.scale(muc, (250, 250))
-klobasa = pygame.image.load("klobasa.png")
-klobasa = pygame.transform.scale(klobasa, (200, 50))
 
 
 pygame.display.set_caption("Nyan Cat")
+pygame.mixer.music.load("Nyan Cat original (1).mp3")
+pygame.mixer.music.play(-1)
+
 x = 150
 y = 100
 hitrost =   5
@@ -29,12 +29,6 @@ def novaPlatforma():
     Nsirina = random.randint(140,300)
     Nx = 800
     Ny = random.choice(visine)
-platforme = [ [50,[200,300]], [90, [229, 400]], [140, [350, 150]], [ 100, [400, 50]],  [ 50, [500, 200]]]
-
-def novaPlatforma():
-    Nsirina = random.randint(50,140)
-    Nx = 500
-    Ny = random.randint(150,400)
     platforme.append([Nsirina,[Nx,Ny]])
 
 while not exit:
@@ -49,9 +43,8 @@ while not exit:
     print(platforme)
     print(x,y)
 
-    kitty = pygame.Rect(x,y,15, 15)
+    kitty = pygame.Rect(x,y,65, 65)
     pygame.draw.rect(canvas, (150, 0, 250), kitty)
-    canvas.blit(muc, kitty)
 
     for i in platforme:
         i[1][0] -= 1.5
