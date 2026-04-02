@@ -2,6 +2,7 @@ import random
 
 import pygame
 
+
 pygame.init()
 pygame.mixer.init()
 ozadje = pygame.image.load("nyan_cat_background_by_kento1_d3l6i50-pre.jpg")
@@ -44,13 +45,21 @@ while not exit:
     canvas.blit(ozadje, (0, 0))
     naPlatformi = False
 
-    keys = pygame.key.get_pressed()
+    """keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE] and skoki > 0:
+        pygame.time.wait(40)
         hitrost = -5
-        skoki -= 1
+        skoki -= 1"""
 
-    print(platforme)
-    print(x,y)
+    if y > 800:
+        exit = True
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit = True
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and skoki > 0:
+                hitrost = -5
+                skoki -= 1
 
     kitty = pygame.Rect(x,y,65, 65)
     pygame.draw.rect(canvas, (150, 0, 250), kitty)
@@ -64,23 +73,18 @@ while not exit:
             platforme.pop(0)
 
         if kitty.colliderect(plat):
-            print(":)")
             if hitrost >= 0 and kitty.bottom <= plat.bottom:
                 y = plat.top - kitty.height
                 hitrost = 0
-                skoki = 2
+                if naPlatformi == False:
+                    skoki = 2
                 naPlatformi = True
 
     if naPlatformi == False:
-        print("------------------------")
         hitrost += gravitacija
         y += hitrost
 
 
-    if y > 800:
-        exit = True
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            exit = True
+
 
     pygame.display.update()
