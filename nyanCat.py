@@ -23,7 +23,11 @@ exit = False
 
 # [ [ sirina,[x, y]], ... ]
 platforme = [ [160,[200,340]], [200, [229, 400]], [140, [350, 580]], [ 180, [400, 60]],  [ 220, [500, 640]]]
+hrana = []
 visine = [160, 220, 280, 340, 400, 460, 520, 580, 640, 700]
+
+for k in range(20):
+    hrana.append([random.randint(200, 600), random.randint(150, 700)])
 
 def novaPlatforma():
     Nsirina = random.randint(140,300)
@@ -31,17 +35,19 @@ def novaPlatforma():
     Ny = random.choice(visine)
     platforme.append([Nsirina,[Nx,Ny]])
 
+def novaHrana():
+    Hx = 800
+    Hy = random.randint(150, 700)
+    hrana.append([Hx, Hy])
+
 while not exit:
-    pygame.time.wait(50)
+    pygame.time.wait(5)
     canvas.blit(ozadje, (0, 0))
     naPlatformi = False
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE]:
         hitrost = -5
-
-    print(platforme)
-    print(x,y)
 
     kitty = pygame.Rect(x,y,65, 65)
     pygame.draw.rect(canvas, (150, 0, 250), kitty)
@@ -55,16 +61,21 @@ while not exit:
             platforme.pop(0)
 
         if kitty.colliderect(plat):
-            print(":)")
             if hitrost >= 0 and kitty.bottom <= plat.bottom:
                 y = plat.top - kitty.height
                 hitrost = 0
                 naPlatformi = True
 
     if naPlatformi == False:
-        print("------------------------")
         hitrost += gravitacija
         y += hitrost
+
+    for h in hrana:
+        h[0] -= 1.5
+        food = pygame.Rect(h[0], h[1], 20, 20)
+        pygame.draw.rect(canvas, (0, 0, 0), food)            
+        novaHrana()
+        hrana.pop(0)    
 
 
 
