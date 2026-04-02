@@ -23,20 +23,21 @@ skoki = 2
 exit = False
 
 # [ [ sirina,[x, y]], ... ]
-platforme = [ [160,[200,340]], [200, [229, 400]], [140, [350, 580]], [ 180, [400, 60]],  [ 220, [500, 640]]]
+#platforme = [ [160,[200,340]], , [140, [350, 580]], ,  [ 220, [500, 640]]]
 visine = [160, 220, 280, 340, 400, 460, 520, 580, 640, 700]
 
 def novaPlatforma():
     Nsirina = random.randint(140,300)
     Nx = 800
     Ny = random.choice(visine)
-platforme = [ [50,[200,300]], [90, [229, 400]], [140, [350, 150]], [ 100, [400, 50]],  [ 50, [500, 200]]]
-
+    platforme.append([Nsirina, [Nx, Ny]])
+platforme = [ [50,[200,340]], [200, [229, 400]], [140, [330, 580]], [ 180, [400, 460]], [ 100, [510, 160]],  [ 110, [640, 220]], [ 150, [720, 400]]]
+"""
 def novaPlatforma():
     Nsirina = random.randint(50,140)
-    Nx = 500
-    Ny = random.randint(150,400)
-    platforme.append([Nsirina,[Nx,Ny]])
+    Nx = 800
+    Ny = random.randint(150,700)"""
+
 
 while not exit:
     pygame.time.wait(20)
@@ -77,7 +78,7 @@ while not exit:
         y += hitrost
 
 
-    if y > 500:
+    if y > 800:
         exit = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
