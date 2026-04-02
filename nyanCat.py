@@ -3,18 +3,18 @@ import random
 import pygame
 
 pygame.init()
+pygame.mixer.init()
 ozadje = pygame.image.load("nyan_cat_background_by_kento1_d3l6i50-pre.jpg")
 canvas = pygame.display.set_mode((800, 800))
 ozadje = pygame.transform.scale(ozadje, (800, 800))
 muc = pygame.image.load("muc.png")
 muc = pygame.transform.scale(muc, (250, 250))
-#muc = pygame.transform.scale(muc, (250, 250))
-#muc = pygame.transform.scale(muc, (250, 250))
-klobasa = pygame.image.load("klobasa.png")
-klobasa = pygame.transform.scale(klobasa, (200, 50))
 
 
 pygame.display.set_caption("Nyan Cat")
+#pygame.mixer.music.load("Nyan Cat original (1).mp3")
+#pygame.mixer.music.play(-1)
+
 x = 150
 y = 100
 hitrost =   5
@@ -40,7 +40,7 @@ def novaPlatforma():
 
 
 while not exit:
-    pygame.time.wait(20)
+    pygame.time.wait(10)
     canvas.blit(ozadje, (0, 0))
     naPlatformi = False
 
@@ -52,9 +52,8 @@ while not exit:
     print(platforme)
     print(x,y)
 
-    kitty = pygame.Rect(x,y,15, 15)
+    kitty = pygame.Rect(x,y,65, 65)
     pygame.draw.rect(canvas, (150, 0, 250), kitty)
-    canvas.blit(muc, kitty)
 
     for i in platforme:
         i[1][0] -= 1.5
