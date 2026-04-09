@@ -1,7 +1,5 @@
 import random
-
 import pygame
-
 
 pygame.init()
 pygame.mixer.init()
@@ -9,14 +7,16 @@ ozadje = pygame.image.load("nyan_cat_background_by_kento1_d3l6i50-pre.jpg")
 canvas = pygame.display.set_mode((800, 800))
 ozadje = pygame.transform.scale(ozadje, (800, 800))
 muc = pygame.image.load("muc.png")
-muc = pygame.transform.scale(muc, (250, 250))
-
+muc = pygame.transform.scale(muc, (250, 70))
+mafin = pygame.image.load("mafin.png")
+burger = pygame.image.load("burger.png")
+donut = pygame.image.load("donut.png")
 
 pygame.display.set_caption("Nyan Cat")
-#pygame.mixer.music.load("Nyan Cat original (1).mp3")
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load("Nyan Cat original (1).mp3")
+pygame.mixer.music.play(-1)
 
-x = 150
+x = 200
 y = 100
 hitrost =   5
 gravitacija = 0.07
@@ -24,10 +24,8 @@ skoki = 2
 exit = False
 
 # [ [ sirina,[x, y]], ... ]
-
 platforme = [ [160,[200,340]], [200, [229, 400]], [140, [350, 580]], [ 180, [400, 60]],  [ 220, [500, 640]]]
 hrana = []
-
 #platforme = [ [160,[200,340]], , [140, [350, 580]], ,  [ 220, [500, 640]]]
 visine = [160, 220, 280, 340, 400, 460, 520, 580, 640, 700]
 
@@ -46,17 +44,13 @@ def novaPlatforma():
     Nx = 800
     Ny = random.randint(150,700)"""
 
-
 def novaHrana():
     Hx = 800
     Hy = random.randint(150, 700)
     hrana.append([Hx, Hy])
 
 while not exit:
-
     pygame.time.wait(5)
-
-    pygame.time.wait(10)
     canvas.blit(ozadje, (0, 0))
     naPlatformi = False
 
@@ -65,8 +59,6 @@ while not exit:
         pygame.time.wait(40)
         hitrost = -5
         skoki -= 1"""
-
-
 
     if y > 800:
         exit = True
@@ -78,8 +70,11 @@ while not exit:
                 hitrost = -5
                 skoki -= 1
 
-    kitty = pygame.Rect(x,y,65, 65)
+    kitty = pygame.Rect(x,y,50, 50)
     pygame.draw.rect(canvas, (150, 0, 250), kitty)
+    muc_rect = muc.get_rect()
+    muc_rect.midright = kitty.midright
+    canvas.blit(muc, muc_rect)
 
     for i in platforme:
         i[1][0] -= 1.5
@@ -107,8 +102,5 @@ while not exit:
         pygame.draw.rect(canvas, (0, 0, 0), food)            
         novaHrana()
         hrana.pop(0)    
-
-
-
 
     pygame.display.update()
