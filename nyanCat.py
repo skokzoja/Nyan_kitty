@@ -9,12 +9,16 @@ ozadje = pygame.transform.scale(ozadje, (800, 800))
 muc = pygame.image.load("muc.png")
 muc = pygame.transform.scale(muc, (250, 70))
 mafin = pygame.image.load("mafin.png")
+mafin = pygame.transform.scale(mafin, (60, 60))
 burger = pygame.image.load("burger.png")
+burger = pygame.transform.scale(burger, (60, 60))
 donut = pygame.image.load("donut.png")
+donut = pygame.transform.scale(donut, (60, 60))
+menu = [mafin, burger, donut]
 
-#pygame.display.set_caption("Nyan Cat")
-#pygame.mixer.music.load("Nyan Cat original (1).mp3")
-#pygame.mixer.music.play(-1)
+pygame.display.set_caption("Nyan Cat")
+pygame.mixer.music.load("Nyan Cat original (1).mp3")
+pygame.mixer.music.play(-1)
 
 x = 200
 y = 100
@@ -32,7 +36,7 @@ hrana = []
 visine = [160, 220, 280, 340, 400, 460, 520, 580, 640, 700]
 
 for k in range(10):
-    hrana.append([random.randint(0, 800), random.randint(50, 750)])
+    hrana.append([random.randint(0, 800), random.randint(50, 750), random.choice(menu)])
 print(hrana)
 def novaPlatforma():
     Nsirina = random.randint(140,300)
@@ -40,16 +44,11 @@ def novaPlatforma():
     Ny = random.choice(visine)
     platforme.append([Nsirina, [Nx, Ny]])
 platforme = [ [50,[200,340]], [200, [250, 400]], [140, [380, 580]], [ 180, [430, 460]], [ 100, [510, 160]],  [ 110, [660, 220]], [ 150, [780, 400]]]
-"""
-def novaPlatforma():
-    Nsirina = random.randint(50,140)
-    Nx = 800
-    Ny = random.randint(150,700)"""
 
 def novaHrana():
     Hx = 800
     Hy = random.randint(150, 700)
-    hrana.append([Hx, Hy])
+    hrana.append([Hx, Hy, random.choice(menu)])
 
 while not exit:
     pygame.time.wait(5)
@@ -61,6 +60,7 @@ while not exit:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit = True
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE and skoki > 0:
                 hitrost = -5
@@ -94,8 +94,9 @@ while not exit:
 
     for h in hrana:
         h[0] -= 1.5
-        food = pygame.Rect(h[0], h[1], 20, 20)
+        food = pygame.Rect(h[0], h[1], 1, 1)
         pygame.draw.rect(canvas, (0, 0, 0), food)
+        canvas.blit(h[2], food.topleft)
         if h[0] < 0:
             novaHrana()
             hrana.remove(h)
@@ -103,9 +104,8 @@ while not exit:
             hrana.remove(h)
             novaHrana()
             score += 1
-
-
-    print(score)
+            pygame.display.set_caption("Score:" + str(score))
 
 
     pygame.display.update()
+print("Score:" + str(score))
