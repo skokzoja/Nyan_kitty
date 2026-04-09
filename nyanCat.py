@@ -33,13 +33,17 @@ visine = [160, 220, 280, 340, 400, 460, 520, 580, 640, 700]
 
 for k in range(10):
     hrana.append([random.randint(0, 800), random.randint(50, 750)])
-print(hrana)
+
 def novaPlatforma():
     Nsirina = random.randint(140,300)
     Nx = 800
     Ny = random.choice(visine)
-    platforme.append([Nsirina, [Nx, Ny]])
-platforme = [ [50,[200,340]], [200, [250, 400]], [140, [380, 580]], [ 180, [430, 460]], [ 100, [510, 160]],  [ 110, [660, 220]], [ 150, [780, 400]]]
+    if random.random() < 0.1:
+        oblika = "razpada"
+    else:
+        oblika = "navadna"
+    platforme.append([Nsirina, [Nx, Ny],oblika])
+platforme = [ [50,[200,340],"navadna"], [200, [250, 400],"navadna"], [140, [380, 580],"navadna"], [ 180, [430, 460],"razpada"], [ 100, [510, 160],"navadna"],  [ 110, [660, 220],"navadna"], [ 150, [780, 400],"navadna"]]
 """
 def novaPlatforma():
     Nsirina = random.randint(50,140)
@@ -53,6 +57,7 @@ def novaHrana():
 
 while not exit:
     pygame.time.wait(5)
+
     canvas.blit(ozadje, (0, 0))
     naPlatformi = False
 
@@ -67,30 +72,38 @@ while not exit:
                 skoki -= 1
 
     kitty = pygame.Rect(x,y,50, 50)
-    pygame.draw.rect(canvas, (150, 0, 250), kitty)
-    muc_rect = muc.get_rect()
-    muc_rect.midright = kitty.midright
-    canvas.blit(muc, muc_rect)
+
 
     for i in platforme:
         i[1][0] -= 1.5
         plat =  pygame.Rect(i[1][0],i[1][1], i[0],20 )
-        pygame.draw.rect(canvas, (222, 91, 40), plat)
+        if i[2] == "navadna":
+            pygame.draw.rect(canvas, (222, 91, 40), plat)
+        else:
+            pygame.draw.rect(canvas, (0, 250, 40), plat)
         if i[1][0] < -i[0]:
             novaPlatforma()
             platforme.pop(0)
 
         if kitty.colliderect(plat):
             if hitrost >= 0 and kitty.bottom <= plat.bottom:
-                y = plat.top - kitty.height
-                hitrost = 0
-                if naPlatformi == False:
-                    skoki = 2
-                naPlatformi = True
+                if i[2] == "navadna":
+                    y = plat.top - kitty.height
+                    hitrost = 0
 
+                    if naPlatformi == False:
+                        skoki = 2
+                    naPlatformi = True
+                    cas = 10
+                else:
+                    skoki = 2
+                    if cas != 0:
+                        hitrost = 0
+                        cas -= 1
     if naPlatformi == False:
         hitrost += gravitacija
         y += hitrost
+
 
     for h in hrana:
         h[0] -= 1.5
@@ -104,7 +117,10 @@ while not exit:
             novaHrana()
             score += 1
 
-
+    pygame.draw.rect(canvas, (30, 55, 140), kitty)
+    muc_rect = muc.get_rect()
+    muc_rect.bottomright = kitty.bottomright
+    canvas.blit(muc, muc_rect)
     print(score)
 
 
