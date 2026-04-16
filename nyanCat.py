@@ -19,6 +19,7 @@ menu = [mafin, burger, donut]
 pygame.display.set_caption("Nyan Cat")
 pygame.mixer.music.load("Nyan Cat original (1).mp3")
 pygame.mixer.music.play(-1)
+font = pygame.font.SysFont("Arial", 30)
 
 x = 200
 y = 100
@@ -38,7 +39,7 @@ visine = [160, 220, 280, 340, 400, 460, 520, 580, 640, 700]
 for k in range(10):
     #hrana.append([random.randint(0, 800), random.randint(50, 750)])
     hrana.append([random.randint(0, 800), random.randint(50, 750), random.choice(menu)])
-print(hrana)
+#print(hrana)
 
 def novaPlatforma():
     Nsirina = random.randint(140,300)
@@ -64,8 +65,9 @@ def novaHrana():
 
 while not exit:
     pygame.time.wait(5)
-
+    text = font.render(("Score:" + str(score)),True,(255,255,255))
     canvas.blit(ozadje, (0, 0))
+    canvas.blit(text, (700, 10))
     naPlatformi = False
 
     if y > 800:
@@ -125,7 +127,7 @@ while not exit:
             hrana.remove(h)
             novaHrana()
             score += 1
-            pygame.display.set_caption("Score:" + str(score))
+            #pygame.display.set_caption("Score:" + str(score))
 
 
     pygame.draw.rect(canvas, (30, 55, 140), kitty)
